@@ -5,11 +5,16 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 
+
+
 /**
  * @title ETHWrapper
  * @dev A contract that wraps ETH into an ERC20 token
  */
 contract ETHWrapper is ERC20{
+
+    error CantSendZero();
+    error InsufficientBalance();
     
 
     // Events
@@ -22,7 +27,7 @@ contract ETHWrapper is ERC20{
      * @dev Deposit ETH and receive wrapped WSIN
      */
     function deposit() public payable  {
-        require(msg.value > 0, "Cannot deposit zero ETH");
+        if(msg.value <= 0) revert CantSendZero();
         
         // Mint equal amount of tokens to the sender
         _mint(msg.sender, msg.value);
@@ -42,7 +47,7 @@ contract ETHWrapper is ERC20{
      * @param amount Amount of wrapped tokens to burn
      */
     function withdraw(uint256 amount) public  {
-        require(amount > 0, "Cannot withdraw zero ETH");
+        if(amount <= 0) revert CantSendZero();
         require(balanceOf(msg.sender) >= amount, "Insufficient balance");
         
         // Burn tokens first 
