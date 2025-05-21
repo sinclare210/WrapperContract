@@ -45,7 +45,7 @@ contract ETHWrapper is ERC20{
         require(amount > 0, "Cannot withdraw zero ETH");
         require(balanceOf(msg.sender) >= amount, "Insufficient balance");
         
-        // Burn tokens first (checks-effects-interactions pattern)
+        // Burn tokens first 
         _burn(msg.sender, amount);
         
         // Send ETH to user
