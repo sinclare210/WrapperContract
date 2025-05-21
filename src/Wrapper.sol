@@ -1,62 +1,39 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.27;
+pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Sinclair} from "./ERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 
+contract Wrapper is ERC20 {
 
-
-/**
- * @title ETHWrapper
- * @dev A contract that wraps ETH into an ERC20 token
- */
-contract ETHWrapper is ERC20{
-
-    error CantSendZero();
-    error InsufficientBalance();
+    error ZeroNotAllowed();
     
 
-    // Events
-    event Deposited(address indexed user, uint256 amount);
-    event Withdrawn(address indexed user, uint256 amount);
+    using SafeERC20 for IERC20;
 
-    constructor() ERC20("Wrapped ETH", "WETH") {}
+    IERC20 public immutable wrappedToken;
 
-    /**
-     * @dev Deposit ETH and receive wrapped WSIN
-     */
-    function deposit() public payable  {
-        if(msg.value <= 0) revert CantSendZero();
-        
-        // Mint equal amount of tokens to the sender
-        _mint(msg.sender, msg.value);
-        
-        emit Deposited(msg.sender, msg.value);
-    }
+    constructor(address _wrappedToken)
+   ERC20("Wrapped Sinclair", "wTKN"){
+        wrappedToken = IERC20(_wrappedToken);
+   }
 
-    /**
-     * @dev Allow direct ETH deposits
-     */
-    receive() external payable {
-        deposit();
-    }
+   function deposit (uint256 _amount) public {
+    if(_amount < 0) revert ZeroNotAllowed();
+    
+    wrappedToken.safeTransferFrom(msg.sender, address(this), _amount);
+    _mint(msg.sender, _amount);
+   }
 
-    /**
-     * @dev Withdraw ETH by burning wrapped tokens
-     * @param amount Amount of wrapped tokens to burn
-     */
-    function withdraw(uint256 amount) public  {
-        if(amount <= 0) revert CantSendZero();
-        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
-        
-        // Burn tokens first 
-        _burn(msg.sender, amount);
-        
-        // Send ETH to user
-        (bool success,) = msg.sender.call{value: amount}("");
-        require(success, "ETH transfer failed");
-        
-        emit Withdrawn(msg.sender, amount);
-    }
+   function withdraw (uint256 _amount) public {
+         if(_amount < 0) revert ZeroNotAllowed();
+         _burn(msg.sender, _amount);
+         wrappedToken.safeTransfer(msg.sender, _amount);
+   }
+
+
+
 }
