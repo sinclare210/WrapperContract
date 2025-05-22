@@ -1,0 +1,11 @@
+WhenAndGivenTestForDeposit
+├── given _amount is 0
+│   └── it should revert with ZeroNotAllowed
+└── given _amount greater than 0
+    ├── given transferFrom fails
+    │   └── it should revert with "SafeERC20: low-level call failed"
+    └── given transferFrom succeeds
+        ├── it should mint _amount of wTKN to msg.sender
+        ├── it should not change msg sender's original token balance (after transfer)
+        ├── it should increase Wrapper contract's original token balance by _amount
+        └── it should emit Deposited(msg sender, _amount)
