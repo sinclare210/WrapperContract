@@ -8,19 +8,22 @@ import {Sinclair} from "../src/Sinclair.sol";
 
 contract WrapperTest is  Test {
     uint256 depositAmount = 100000000;
-    uint256 withdrawAmount = 20000000000;
+    uint256 withdrawAmount = 1000000;
     uint256 approveAmount = 30000000000;
     Wrapper public wrapper;
     Sinclair public sinclair;
     address sinc = address(0x1);
     function setUp () external {
 
-        vm.startBroadcast(sinc);
+        vm.startBroadcast();
         sinclair = new Sinclair(sinc);
+
         vm.stopBroadcast();
         
-
         wrapper = new Wrapper(address(sinclair));
+        vm.startPrank(sinc);
+        sinclair.approve(address(wrapper), approveAmount);
+        vm.stopPrank();
         
     }
 

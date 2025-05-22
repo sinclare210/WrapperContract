@@ -18,7 +18,7 @@ contract GivenAndWhenDep is  WrapperTest {
 
     modifier given_amountGreaterThan0() {
         vm.startPrank(sinc);
-        sinclair.approve(address(wrapper), approveAmount);
+        
         wrapper.deposit(depositAmount);
         
         vm.stopPrank();

@@ -1,0 +1,11 @@
+WhenAndGivenTestForWithdraw
+├── given _amount is 0
+│   └── it should revert with ZeroNotAllowed
+└── given _amount greater than 0
+    ├── given user balance of wTKN less than _amount
+    │   └── it should revert with ERC20: burn amount exceeds balance
+    └── given user balance of wTKN greater than _amount
+        ├── it should burn _amount of wTKN from msg.sender
+        ├── it should transfer _amount of original token to msg.sender
+        ├── it should decrease contract's original token balance by _amount
+        └── it should emit Withdrawn(msg sender, _amount)
