@@ -25,10 +25,7 @@ contract GivenAndWhenDep is  WrapperTest {
         _;
     }
 
-    function test_GivenTransferFromFails() external given_amountGreaterThan0 {
-        // it should revert with "SafeERC20: low-level call failed"
-    }
-
+    
     function test_GivenTransferFromSucceeds() external given_amountGreaterThan0 {
         // it should mint _amount of wTKN to msg.sender
         // it should not change msg sender's original token balance (after transfer)
@@ -36,6 +33,7 @@ contract GivenAndWhenDep is  WrapperTest {
         // it should emit Deposited(msg sender, _amount)
          assertEq(wrapper.balanceOf(sinc), depositAmount);
          assertEq(sinclair.balanceOf(address(wrapper)), depositAmount);
+         
          
          emit Wrapper.Deposited(sinc, depositAmount);
 
