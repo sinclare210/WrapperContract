@@ -5,6 +5,7 @@ import {WrapperTest} from "../Wrapper.t.sol";
 import {Wrapper} from "../../src/Wrapper.sol";
 
 contract GivenAndWhenDep is  WrapperTest {
+        event Deposited(address indexed user, uint256 amount);
     
     function test_Given_amountIs0() external {
         // it should revert with ZeroNotAllowed
@@ -34,6 +35,10 @@ contract GivenAndWhenDep is  WrapperTest {
         // it should increase Wrapper contract's original token balance by _amount
         // it should emit Deposited(msg sender, _amount)
          assertEq(wrapper.balanceOf(sinc), depositAmount);
+         assertEq(sinclair.balanceOf(address(wrapper)), depositAmount);
+         
+         emit Wrapper.Deposited(sinc, depositAmount);
+
 
         
         
