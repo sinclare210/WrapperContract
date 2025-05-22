@@ -6,9 +6,9 @@ import {Test} from "forge-std/Test.sol";
 import {Sinclair} from "../src/Sinclair.sol";
 
 contract WrapperTest is Test {
-    uint256 depositAmount = 100000000;
-    uint256 withdrawAmount = 1000000;
-    uint256 approveAmount = 30000000000;
+    uint256 constant depositAmount = 100000000;
+    uint256 constant withdrawAmount = 1000000;
+    uint256 constant approveAmount = 30000000000;
     Wrapper public wrapper;
     Sinclair public sinclair;
     address sinc = address(0x1);
