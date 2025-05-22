@@ -8,6 +8,4 @@ contract Sinclair is ERC20 {
     constructor(address recipient) ERC20("Sinclair", "SINCS") {
         _mint(recipient, 100000000000 * 10 ** decimals());
     }
-
-    
 }

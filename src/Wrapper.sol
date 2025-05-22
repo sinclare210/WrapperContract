@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-
 /**
  * @title Wrapper
  *
@@ -20,7 +19,6 @@ contract Wrapper is ERC20 {
     /// @notice The ERC20 token being wrapped (e.g., Sinclair)
     IERC20 public immutable wrappedToken;
 
-    
     /// @notice Error thrown when a zero amount is passed to deposit or withdraw
     error ZeroNotAllowed();
 
@@ -66,7 +64,6 @@ contract Wrapper is ERC20 {
      */
     function deposit(uint256 _amount) public {
         if (_amount == 0) revert ZeroNotAllowed();
-        
 
         wrappedToken.safeTransferFrom(msg.sender, address(this), _amount);
         _mint(msg.sender, _amount);
@@ -88,8 +85,7 @@ contract Wrapper is ERC20 {
      */
     function withdraw(uint256 _amount) public {
         if (_amount == 0) revert ZeroNotAllowed();
-       if (balanceOf(msg.sender) < _amount) revert InsufficentFunds();
-
+        if (balanceOf(msg.sender) < _amount) revert InsufficentFunds();
 
         _burn(msg.sender, _amount);
         wrappedToken.safeTransfer(msg.sender, _amount);

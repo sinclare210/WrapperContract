@@ -6,7 +6,7 @@ import {Wrapper} from "../src/Wrapper.sol";
 
 //0x6395b37b7f966af183Af513FC0B956d2f288B1B6 token
 //0xb674d916813f39Df0d716B06498bBca1bF482186 wrapped
-contract WrapperScript is Script{
+contract WrapperScript is Script {
     Wrapper public wrapper;
 
     function setUp() external {}
@@ -16,5 +16,4 @@ contract WrapperScript is Script{
         wrapper = new Wrapper(0x6395b37b7f966af183Af513FC0B956d2f288B1B6);
         vm.stopBroadcast();
     }
-
 }
