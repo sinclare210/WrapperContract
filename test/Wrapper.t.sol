@@ -11,6 +11,8 @@ contract CounterTest is Test {
     address sinc = address(0x1);
 
     uint256 approveAmount = 1000000000000000;
+    uint256 depositAmount = 200000;
+    uint256 withdrawAmount = 100000;
 
     function setUp() public {
         sinclair = new Sinclair(sinc);
@@ -25,5 +27,5 @@ contract CounterTest is Test {
         vm.stopPrank();
     }
 
-    function testWithdraw() public view {}
+   
 }
