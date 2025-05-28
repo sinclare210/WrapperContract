@@ -13,5 +13,4 @@ contract CounterScript is Script {
         wrapperContract = new WrapperContract(0x1dD05d3CD0D639b19D183d1A7464E9618C06911f);
         vm.stopBroadcast();
     }
-    
 }

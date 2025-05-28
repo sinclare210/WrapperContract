@@ -28,7 +28,10 @@ contract WrapperContract is ERC20 {
     using SafeERC20 for IERC20;
 
     /// @notice Type of asset for deposit/withdrawal
-    enum AssetType {ETH, TOKEN}
+    enum AssetType {
+        ETH,
+        TOKEN
+    }
 
     /// @notice The ERC20 token accepted by this contract
     IERC20 public token;
@@ -37,7 +40,7 @@ contract WrapperContract is ERC20 {
     uint256 public balanceInETH;
 
     /// @notice Tracks individual user ETH balances deposited
-    mapping (address => uint256) balanceInETHForUser;
+    mapping(address => uint256) balanceInETHForUser;
 
     /// @notice Emitted when a user deposits ETH
     /// @param sender The address of the depositor
