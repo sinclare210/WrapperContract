@@ -4,7 +4,7 @@ pragma solidity ^0.8.28;
 import {Script, console} from "forge-std/Script.sol";
 import {Sinclair} from "src/Sinclair.sol";
 
-
+//https://sepolia.etherscan.io/address/0x1dd05d3cd0d639b19d183d1a7464e9618c06911f
 contract CounterScript is Script {
     Sinclair public sinclair;
 
