@@ -5,9 +5,10 @@ import {Test, console} from "forge-std/Test.sol";
 import {WrapperContract} from "src/Wrapper.sol";
 import {Sinclair} from "src/Sinclair.sol";
 
-contract CounterTest is Test {
+contract WrapperTest is Test {
     WrapperContract public wrapperContract;
     Sinclair public sinclair;
+    WrapperContract.AssetType internal assetType;
     address sinc = address(0x1);
 
     uint256 approveAmount = 1000000000000000;
@@ -26,6 +27,4 @@ contract CounterTest is Test {
         assertEq(sinclair.allowance(sinc, address(wrapperContract)), approveAmount);
         vm.stopPrank();
     }
-
-   
 }

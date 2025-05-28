@@ -1,0 +1,19 @@
+WhenAndGivenTestForWithdraw
+├── given _amount is 0
+│   └── it should revert with WithdrawAmountZero
+├── given asset is ETH
+│   ├── given _amount is greater than user ETH balance
+│   │   └── it should revert with InsufficientEthDeposit
+│   └── given _amount less than or equal to user ETH balance
+│       ├── it should decrease balanceInETH by _amount
+│       ├── it should decrease balanceInETHForUser(msg sender) by _amount
+│       ├── it should burn _amount of wrapped tokens from msg sender
+│       ├── it should transfer _amount ETH to msg sender
+│       └── it should emit EthWithdrawal(msg sender, _amount)
+└── given asset is TOKEN
+    ├── given contract has insufficient token balance
+    │   └── it should revert with SafeERC20 error
+    └── given contract has sufficient token balance
+        ├── it should burn _amount of wrapped tokens from msg sender
+        ├── it should transfer _amount tokens to msg sender
+        └── it should emit TokenWithdrawal(msg sender, _amount)

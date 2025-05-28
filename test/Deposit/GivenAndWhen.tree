@@ -1,0 +1,18 @@
+WhenAndGivenTestForDeposit
+├── given asset is ETH
+│   ├── given msg value is 0
+│   │   └── it should revert with ZeroEthAmount
+│   └── given msg value is greater than 0
+│       ├── it should increase balanceInETH by msg.value
+│       ├── it should increase balanceInETHForUser(msgsender) by msg value
+│       ├── it should mint msg.value wrapped tokens to msg.sender
+│       └── it should emit EthDeposit(msg sender, msg value)
+└── given asset is TOKEN
+    ├── given _amount is 0
+    │   └── it should revert with ZeroTokenAmount
+    └── given _amount greater than 0
+        ├── given transferFrom fails
+        │   └── it should revert with SafeERC20 error
+        └── given transferFrom succeeds
+            ├── it should mint _amount wrapped tokens to msg sender
+            └── it should emit TokenDeposit(msg sender, _amount)
