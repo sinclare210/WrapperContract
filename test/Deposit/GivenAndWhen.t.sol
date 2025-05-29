@@ -48,19 +48,17 @@ contract WhenAndGivenTestForDeposit is WrapperTest {
 
     modifier given_amountGreaterThan0() {
         vm.startPrank(sinc);
-        
+
         wrapperContract.deposit(WrapperContract.AssetType.TOKEN, depositAmount);
 
         vm.stopPrank();
         _;
     }
 
-    
-
     function test_GivenTransferFromSucceeds() external givenAssetIsTOKEN given_amountGreaterThan0 {
         // it should mint _amount wrapped tokens to msg sender
         // it should emit TokenDeposit(msg sender, _amount)
-                assertEq(wrapperContract.balanceOf(sinc), depositAmount);
-            emit WrapperContract.TokenDeposit(sinc,depositAmount);
+        assertEq(wrapperContract.balanceOf(sinc), depositAmount);
+        emit WrapperContract.TokenDeposit(sinc, depositAmount);
     }
 }
