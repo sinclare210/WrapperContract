@@ -5,27 +5,27 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-/// @notice Thrown when ETH amount sent is zero in deposit or withdraw
-error ZeroEthAmount();
-
-/// @notice Thrown when token amount provided is zero in deposit or withdraw
-error ZeroTokenAmount();
-
-/// @notice Thrown when attempting to withdraw more ETH than deposited
-error InsufficientEthDeposit();
-
-/// @notice Thrown when attempting to withdraw more tokens than the wrapped balance
-error InsufficientWrappedBalance();
-
-/// @notice Thrown when attempting to withdraw zero tokens or ETH (withdraw amount cannot be zero)
-error WithdrawAmountZero();
-
 /// @title WrapperContract - Wrap ETH and an ERC20 token with minting and burning of wrapped tokens
 /// @author
 /// @notice Users can deposit ETH or a specific ERC20 token and receive wrapped tokens (WEST) 1:1
 /// @dev Uses OpenZeppelin's ERC20 and SafeERC20 for safe transfers
 contract WrapperContract is ERC20 {
     using SafeERC20 for IERC20;
+
+    /// @notice Thrown when ETH amount sent is zero in deposit or withdraw
+    error ZeroEthAmount();
+
+    /// @notice Thrown when token amount provided is zero in deposit or withdraw
+    error ZeroTokenAmount();
+
+    /// @notice Thrown when attempting to withdraw more ETH than deposited
+    error InsufficientEthDeposit();
+
+    /// @notice Thrown when attempting to withdraw more tokens than the wrapped balance
+    error InsufficientWrappedBalance();
+
+    /// @notice Thrown when attempting to withdraw zero tokens or ETH (withdraw amount cannot be zero)
+    error WithdrawAmountZero();
 
     /// @notice Type of asset for deposit/withdrawal
     enum AssetType {
@@ -40,7 +40,7 @@ contract WrapperContract is ERC20 {
     uint256 public balanceInETH;
 
     /// @notice Tracks individual user ETH balances deposited
-    mapping(address => uint256) balanceInETHForUser;
+    mapping(address => uint256) public balanceInETHForUser;
 
     /// @notice Emitted when a user deposits ETH
     /// @param sender The address of the depositor

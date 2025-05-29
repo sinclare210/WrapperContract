@@ -9,13 +9,15 @@ contract WrapperTest is Test {
     WrapperContract public wrapperContract;
     Sinclair public sinclair;
     WrapperContract.AssetType internal assetType;
-    address sinc = address(0x1);
+    address public sinc;
 
     uint256 approveAmount = 1000000000000000;
     uint256 depositAmount = 200000;
     uint256 withdrawAmount = 100000;
 
     function setUp() public {
+        sinc = makeAddr("sinc");
+        vm.deal(sinc, 3 ether);
         sinclair = new Sinclair(sinc);
 
         wrapperContract = new WrapperContract(address(sinclair));
